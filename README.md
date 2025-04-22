@@ -49,6 +49,12 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+Создать .env в директории /shortener.
+Пример файла:
+```
+DATABASE_URL=sqlite+aiosqlite:///./fastapi.dba
+```
+
 Применить миграции:
 ```
 cd shortener
