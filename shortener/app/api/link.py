@@ -19,9 +19,7 @@ async def create_new_url(
         base_url: LinkCreate,
         session: AsyncSession = Depends(get_async_session)
 ):
-    new_url = await create_link(base_url, session)
-    await session.commit()
-    await session.refresh(new_url)
+    new_url = await create_link(base_url.base_url, session)
     return new_url
 
 
@@ -33,5 +31,5 @@ async def get_base_url(
         shorten_url_id: int,
         session: AsyncSession = Depends(get_async_session)
 ):
-    url = await get_base_url_by_id(shorten_url_id, session)
-    return RedirectResponse(url.base_url)
+    db_link = await get_base_url_by_id(shorten_url_id, session)
+    return RedirectResponse(url=db_link.base_url)

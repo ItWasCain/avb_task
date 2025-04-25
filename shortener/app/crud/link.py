@@ -9,10 +9,12 @@ async def create_link(
         new_link: LinkCreate,
         session: AsyncSession,
 ) -> Link:
-    new_link_data = new_link.dict()
-    db_link = Link(**new_link_data)
+    # new_link_data = new_link.dict()
+    db_link = Link(base_url=str(new_link))
 
     session.add(db_link)
+    await session.commit()
+    await session.refresh(db_link)
     return db_link
 
 
